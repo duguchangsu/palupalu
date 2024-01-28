@@ -1,9 +1,10 @@
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { Button } from "@/components/ui/button";
 
 function App() {
-  const account = useAccount()
-  const { connectors, connect, status, error } = useConnect()
-  const { disconnect } = useDisconnect()
+  const account = useAccount();
+  const { connectors, connect, status, error } = useConnect();
+  const { disconnect } = useDisconnect();
 
   return (
     <>
@@ -18,29 +19,27 @@ function App() {
           chainId: {account.chainId}
         </div>
 
-        {account.status === 'connected' && (
-          <button type="button" onClick={() => disconnect()}>
-            Disconnect
-          </button>
+        {account.status === "connected" && (
+          <Button onClick={() => disconnect()}>Disconnect</Button>
         )}
       </div>
 
       <div>
         <h2>Connect</h2>
         {connectors.map((connector) => (
-          <button
+          <Button
+            variant="outline"
             key={connector.uid}
             onClick={() => connect({ connector })}
-            type="button"
           >
             {connector.name}
-          </button>
+          </Button>
         ))}
         <div>{status}</div>
         <div>{error?.message}</div>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
